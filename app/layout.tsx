@@ -1,33 +1,30 @@
-import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
-import "./globals.css";
+import * as React from 'react';
+import type { Metadata } from 'next';
+import { Providers } from './providers';
+import './globals.css';
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
+export const unstable_instant = { prefetch: 'static' };
 
 export const metadata: Metadata = {
-  title: "Errata",
-  description: "",
+  title: 'EduAgent AI — Adaptive Educational AI Tutor',
+  description: 'Structured lesson paths, auto-generated revision notes, voice explanations, and progress telemetry trackers.',
 };
 
 export default function RootLayout({
   children,
-}: Readonly<{
+}: {
   children: React.ReactNode;
-}>) {
+}) {
   return (
-    <html
-      lang="en"
-      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
-    >
-      <body className="min-h-full flex flex-col">{children}</body>
+    <html lang="en" className="dark scroll-smooth">
+      <head>
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+      </head>
+      <body className="font-outfit antialiased bg-neutral-950 text-neutral-100 min-h-screen selection:bg-emerald-500/25 selection:text-emerald-300">
+        <Providers>{children}</Providers>
+      </body>
     </html>
   );
 }
