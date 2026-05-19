@@ -22,11 +22,13 @@ export function useQuiz() {
     }));
   };
 
-  const submitAnswers = async (): Promise<QuizGradingResult | null> => {
+  const submitAnswers = async (answers?: Record<string, string>): Promise<QuizGradingResult | null> => {
     if (!activeQuiz) return null;
     
     setSubmitting(true);
     setError(null);
+    
+    const finalAnswers = answers || userAnswers;
     
     try {
       const response = await fetch('/api/quizzes/submit', {
@@ -36,7 +38,7 @@ export function useQuiz() {
         },
         body: JSON.stringify({
           quizId: activeQuiz.id,
-          answers: userAnswers,
+          answers: finalAnswers,
         }),
       });
 

@@ -10,8 +10,6 @@ import { Card, CardHeader, CardContent, CardTitle, CardDescription } from '@/com
 import { FileText, Sparkles, Plus, X } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
-export const unstable_instant = { prefetch: 'static' };
-
 export default function DocumentsPage() {
   const { data: session } = useSession();
   const userId = session?.user?.id || 'a1b2c3d4-e5f6-7a8b-9c0d-1e2f3a4b5c6d';

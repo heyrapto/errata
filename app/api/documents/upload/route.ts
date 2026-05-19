@@ -2,12 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { createDocument } from '@/lib/db/documents';
 import { runUploadFlow } from '@/lib/ai/agent-builder';
 
-// Limit file size payload to 10MB in Next.js
-export const config = {
-  api: {
-    bodyParser: false,
-  },
-};
+
 
 export async function POST(req: NextRequest) {
   try {

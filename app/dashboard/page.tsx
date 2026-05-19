@@ -2,24 +2,19 @@
 
 import { useState, useEffect } from 'react';
 import { useSession } from 'next-auth/react';
-import { Card, CardHeader, CardContent, CardTitle, CardDescription } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
+import { Card } from '@/components/ui/card';
 import { ProgressChart } from '@/components/progress/progress-chart';
 import { WeakTopicsList } from '@/components/progress/weak-topics-list';
 import { useProgress } from '@/hooks/use-progress';
-import { 
-  Sparkles, 
-  BookOpen, 
-  Calendar, 
-  ArrowUpRight, 
-  MessageSquare, 
+import {
+  Sparkles,
+  Calendar,
+  ArrowUpRight,
+  MessageSquare,
   FileText,
   Video,
-  Award
 } from 'lucide-react';
 import Link from 'next/link';
-
-export const unstable_instant = { prefetch: 'static' };
 
 export default function DashboardOverviewPage() {
   const { data: session } = useSession();
@@ -62,7 +57,7 @@ export default function DashboardOverviewPage() {
       {/* Premium Hero Welcome Banner */}
       <div className="relative rounded-2xl border border-neutral-800 bg-neutral-900/20 p-6 md:p-8 overflow-hidden shadow-2xl backdrop-blur-md">
         <div className="absolute top-0 right-0 -translate-y-1/4 translate-x-1/4 h-[180px] w-[180px] rounded-full bg-emerald-500/5 blur-[50px]" />
-        
+
         <div className="relative z-10 space-y-2">
           <div className="flex items-center gap-1.5 text-xs font-bold text-emerald-400 uppercase tracking-widest">
             <Sparkles className="h-4 w-4" />
@@ -82,7 +77,7 @@ export default function DashboardOverviewPage() {
         <h3 className="text-sm font-bold uppercase tracking-wider text-neutral-500">Quick Study Actions</h3>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
           {quickActions.map((act) => (
-            <Card 
+            <Card
               key={act.title}
               className="hover:border-emerald-500/30 transition-all duration-200 group active:scale-[0.98]"
             >

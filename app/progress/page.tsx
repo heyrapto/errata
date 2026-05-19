@@ -10,8 +10,6 @@ import { Button } from '@/components/ui/button';
 import { formatDate } from '@/lib/utils';
 import { cn } from '@/lib/utils';
 
-export const unstable_instant = { prefetch: 'static' };
-
 export default function ProgressTrackerPage() {
   const { data: session } = useSession();
   const userId = session?.user?.id || 'a1b2c3d4-e5f6-7a8b-9c0d-1e2f3a4b5c6d';
@@ -20,8 +18,8 @@ export default function ProgressTrackerPage() {
   // Compute overall study metrics
   const totalQuizzes = records.length;
   const passedQuizzes = records.filter(r => r.score >= 70).length;
-  const averageScore = totalQuizzes > 0 
-    ? Math.round(records.reduce((acc, curr) => acc + curr.score, 0) / totalQuizzes) 
+  const averageScore = totalQuizzes > 0
+    ? Math.round(records.reduce((acc, curr) => acc + curr.score, 0) / totalQuizzes)
     : 0;
 
   return (
@@ -127,11 +125,11 @@ export default function ProgressTrackerPage() {
                         {formatDate(rec.recorded_at)}
                       </td>
                       <td className="p-4 text-right">
-                        <span 
+                        <span
                           className={cn(
                             'inline-block px-2.5 py-0.5 rounded-full text-[10px] font-bold border',
-                            rec.score >= 70 
-                              ? 'bg-emerald-500/10 border-emerald-500/20 text-emerald-400' 
+                            rec.score >= 70
+                              ? 'bg-emerald-500/10 border-emerald-500/20 text-emerald-400'
                               : 'bg-amber-500/10 border-amber-500/20 text-amber-400'
                           )}
                         >

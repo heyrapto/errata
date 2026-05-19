@@ -5,8 +5,6 @@ import { Note } from '@/types/lesson';
 import { NoteEditor } from '@/components/notes/note-editor';
 import { Loader2 } from 'lucide-react';
 
-export const unstable_instant = { prefetch: 'static' };
-
 interface NoteEditorPageProps {
   params: Promise<{ id: string }>;
 }

@@ -1,16 +1,16 @@
 import { TutorMode } from '@/types/lesson';
-import { extractTextFromPdf } from '../document-processing/extract-text';
-import { chunkText } from '../document-processing/chunk-text';
-import { getEmbedding } from './embeddings';
-import { indexDocumentChunks } from '../search/index-document';
-import { hybridSearch } from '../search/hybrid-search';
-import { getGeminiModel } from './gemini';
-import { buildLessonPrompt } from './prompts';
-import { createLesson } from '../db/lessons';
-import { createNote } from '../db/notes';
-import { createQuiz } from '../db/quizzes';
-import { createProgressRecord } from '../db/progress';
-import { createSchedule } from '../db/schedules';
+import { extractTextFromPdf } from '@/lib/document-processing/extract-text';
+import { chunkText } from '@/lib/document-processing/chunk-text';
+import { getEmbedding } from '@/lib/ai/embeddings';
+import { indexDocumentChunks } from '@/lib/search/index-document';
+import { hybridSearch } from '@/lib/search/hybrid-search';
+import { getGeminiModel } from '@/lib/ai/gemini';
+import { buildLessonPrompt } from '@/lib/ai/prompts';
+import { createLesson } from '@/lib/db/lessons';
+import { createNote } from '@/lib/db/notes';
+import { createQuiz } from '@/lib/db/quizzes';
+import { createProgressRecord } from '@/lib/db/progress';
+import { createSchedule } from '@/lib/db/schedules';
 
 /**
  * Agent Flow 1: Upload Study Material Flow

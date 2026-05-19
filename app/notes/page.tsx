@@ -6,8 +6,6 @@ import { NoteCard } from '@/components/notes/note-card';
 import { Card, CardHeader, CardContent, CardTitle } from '@/components/ui/card';
 import { BookOpen, Loader2 } from 'lucide-react';
 
-export const unstable_instant = { prefetch: 'static' };
-
 export default function NotesLibraryPage() {
   const [notes, setNotes] = useState<Note[]>([]);
   const [loading, setLoading] = useState(true);
@@ -66,10 +64,10 @@ export default function NotesLibraryPage() {
       ) : notes.length > 0 ? (
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
           {notes.map((note) => (
-            <NoteCard 
-              key={note.id} 
-              note={note} 
-              onDelete={handleDeleteNote} 
+            <NoteCard
+              key={note.id}
+              note={note}
+              onDelete={handleDeleteNote}
             />
           ))}
         </div>

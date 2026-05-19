@@ -1,10 +1,14 @@
-const pdf = require('pdf-parse');
-
 /**
  * Extracts raw textual data from an uploaded PDF document buffer.
  */
 export async function extractTextFromPdf(pdfBuffer: Buffer): Promise<string> {
   try {
+    // Polyfill DOMMatrix for pdf-parse CJS evaluation in Node.js environments
+    if (typeof global !== 'undefined' && !(global as any).DOMMatrix) {
+      (global as any).DOMMatrix = class DOMMatrix {};
+    }
+    
+    const pdf = require('pdf-parse');
     const data = await pdf(pdfBuffer);
     
     if (data && data.text) {

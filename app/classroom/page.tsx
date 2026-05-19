@@ -5,8 +5,6 @@ import { Card, CardHeader, CardContent, CardTitle, CardDescription } from '@/com
 import { Button } from '@/components/ui/button';
 import { Video, Users, Sparkles, AlertCircle, Compass } from 'lucide-react';
 
-export const unstable_instant = { prefetch: 'static' };
-
 export default function ClassroomPage() {
   const [activeSession, setActiveSession] = useState(false);
 
@@ -24,7 +22,7 @@ export default function ClassroomPage() {
         {/* Call window placeholder */}
         <Card className="md:col-span-2 overflow-hidden flex flex-col justify-between min-h-[400px] border border-neutral-800">
           <div className="h-1.5 bg-gradient-to-r from-emerald-500 to-teal-500" />
-          
+
           <CardContent className="flex-1 flex flex-col items-center justify-center text-center p-6 space-y-4">
             {activeSession ? (
               <div className="space-y-4 w-full">
@@ -35,8 +33,8 @@ export default function ClassroomPage() {
                     Zoom Video SDK Connected — Real-time peer stream active
                   </span>
                 </div>
-                <Button 
-                  onClick={() => setActiveSession(false)} 
+                <Button
+                  onClick={() => setActiveSession(false)}
                   variant="destructive"
                   className="px-6 font-semibold"
                 >
@@ -54,7 +52,7 @@ export default function ClassroomPage() {
                     Launch a synchronized virtual corridor to study textbook notes or quiz topics alongside classmates in real-time.
                   </p>
                 </div>
-                <Button 
+                <Button
                   onClick={() => setActiveSession(true)}
                   className="px-6 font-semibold h-11"
                 >
@@ -77,7 +75,7 @@ export default function ClassroomPage() {
             </CardHeader>
             <CardContent className="py-4 text-xs text-neutral-400 leading-normal space-y-3">
               <p>
-                EduAgent Virtual Classrooms are powered by the **Zoom Video SDK**. 
+                EduAgent Virtual Classrooms are powered by the **Zoom Video SDK**.
                 It leverages low-latency audio/video feeds directly alongside active AI workspace notes.
               </p>
               <div className="rounded-lg bg-neutral-950/60 p-3 border border-neutral-850 flex items-start gap-2.5">

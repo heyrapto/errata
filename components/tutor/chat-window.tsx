@@ -4,11 +4,11 @@ import { useState, useRef, useEffect } from 'react';
 import { useSessionStore } from '@/store/session-store';
 import { useChat } from '@/hooks/use-chat';
 import { useVoice } from '@/hooks/use-voice';
-import { MessageBubble } from './message-bubble';
 import { Button } from '../ui/button';
 import { Input } from '../ui/input';
 import { Send, Mic, MicOff, Volume2, VolumeX, Loader2 } from 'lucide-react';
 import { cn } from '@/lib/utils';
+import { MessageBubble } from './message-bubble';
 
 export function ChatWindow() {
   const { messages, isLoading } = useSessionStore();
@@ -18,12 +18,27 @@ export function ChatWindow() {
   const [voiceOutEnabled, setVoiceOutEnabled] = useState(true);
   const bottomRef = useRef<HTMLDivElement>(null);
 
-  // Sync vocal transcription from hook to local input box
+  // Sync vocal transcription from hook to local input box with append fallback
   useEffect(() => {
     if (transcript) {
-      setInputText(transcript);
+      setInputText(prev => {
+        if (prev.endsWith(transcript)) return prev;
+        return prev ? `${prev.trim()} ${transcript}` : transcript;
+      });
     }
   }, [transcript]);
+
+  // Automatically speak the latest assistant message when loading completes and voice out is enabled
+  const prevLoadingRef = useRef(isLoading);
+  useEffect(() => {
+    if (prevLoadingRef.current && !isLoading && voiceOutEnabled && messages.length > 0) {
+      const lastMessage = messages[messages.length - 1];
+      if (lastMessage.role === 'assistant') {
+        speak(lastMessage.content);
+      }
+    }
+    prevLoadingRef.current = isLoading;
+  }, [isLoading, messages, voiceOutEnabled, speak]);
 
   // Autoscroll chat history
   useEffect(() => {
@@ -36,7 +51,7 @@ export function ChatWindow() {
 
     const query = inputText;
     setInputText('');
-    
+
     await sendMessage(query);
   };
 
@@ -75,16 +90,16 @@ export function ChatWindow() {
         {messages.map((msg) => (
           <MessageBubble key={msg.id} message={msg} onSpeak={voiceOutEnabled ? speak : undefined} />
         ))}
-        
+
         {/* Real-time Streaming message preview */}
         {streamingMessage && (
-          <MessageBubble 
+          <MessageBubble
             message={{
               id: 'streaming',
               role: 'assistant',
               content: streamingMessage,
               createdAt: new Date().toISOString()
-            }} 
+            }}
           />
         )}
 
@@ -113,7 +128,7 @@ export function ChatWindow() {
         >
           {isListening ? <MicOff className="h-4.5 w-4.5 animate-pulse" /> : <Mic className="h-4.5 w-4.5" />}
         </Button>
-        
+
         <Input
           value={inputText}
           onChange={(e) => setInputText(e.target.value)}
@@ -121,9 +136,9 @@ export function ChatWindow() {
           className="flex-1 bg-neutral-950 border-neutral-800"
           disabled={isLoading}
         />
-        
-        <Button 
-          type="submit" 
+
+        <Button
+          type="submit"
           disabled={!inputText.trim() || isLoading}
           className="shrink-0"
         >

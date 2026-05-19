@@ -8,8 +8,6 @@ import { Topbar } from '@/components/layout/topbar';
 import { MobileNav } from '@/components/layout/mobile-nav';
 import { Loader2 } from 'lucide-react';
 
-export const unstable_instant = { prefetch: 'static' };
-
 export default function DashboardLayout({ children }: { children: React.ReactNode }) {
   const { status } = useSession();
   const router = useRouter();

@@ -7,8 +7,6 @@ import { WeekCalendar } from '@/components/schedule/week-calendar';
 import { Card, CardHeader, CardContent, CardTitle, CardDescription } from '@/components/ui/card';
 import { Calendar, Loader2 } from 'lucide-react';
 
-export const unstable_instant = { prefetch: 'static' };
-
 export default function StudySchedulePage() {
   const [schedules, setSchedules] = useState<Schedule[]>([]);
   const [loading, setLoading] = useState(true);

@@ -7,8 +7,6 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Settings, User, Sliders, Bell, Sparkles, Check } from 'lucide-react';
 
-export const unstable_instant = { prefetch: 'static' };
-
 export default function SettingsPage() {
   const { data: session } = useSession();
   const [name, setName] = useState(session?.user?.name || 'Academic Learner');

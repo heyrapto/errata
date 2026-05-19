@@ -3,8 +3,6 @@ import type { Metadata } from 'next';
 import { Providers } from './providers';
 import './globals.css';
 
-export const unstable_instant = { prefetch: 'static' };
-
 export const metadata: Metadata = {
   title: 'EduAgent AI — Adaptive Educational AI Tutor',
   description: 'Structured lesson paths, auto-generated revision notes, voice explanations, and progress telemetry trackers.',

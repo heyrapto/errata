@@ -12,16 +12,14 @@ import { VoicePlayer } from '@/components/tutor/voice-player';
 import { QuizCard } from '@/components/quiz/quiz-card';
 import { Button } from '@/components/ui/button';
 import { TutorMode } from '@/types/lesson';
-import { 
-  Sparkles, 
-  BookOpen, 
-  MessageSquare, 
-  Award, 
+import {
+  Sparkles,
+  BookOpen,
+  MessageSquare,
+  Award,
   ArrowLeft,
   GraduationCap
 } from 'lucide-react';
-
-export const unstable_instant = { prefetch: 'static' };
 
 type TutorTab = 'lesson' | 'chat' | 'quiz';
 
@@ -33,7 +31,7 @@ export default function TutorWorkspacePage() {
   const { activeSessionId, startNewSession, currentLesson, clearSession, isLoading } = useSessionStore();
   const { generateLesson } = useLesson();
   const { activeQuiz, startQuiz, submitAnswers, isSubmitting } = useQuiz();
-  
+
   const [activeTab, setActiveTab] = useState<TutorTab>('lesson');
   const [loadingQuiz, setLoadingQuiz] = useState(false);
 
@@ -48,10 +46,10 @@ export default function TutorWorkspacePage() {
     // 1. Ingest session state
     const newSessionId = crypto.randomUUID();
     startNewSession(topic, mode, newSessionId);
-    
+
     // 2. Fetch full structured lesson via API
     const lesson = await generateLesson(topic, mode, documentId);
-    
+
     // 3. Clear old quiz state
     if (lesson) {
       setActiveTab('lesson');
@@ -77,7 +75,7 @@ export default function TutorWorkspacePage() {
       });
 
       const result = await response.json();
-      
+
       if (!response.ok || !result.success) {
         throw new Error(result.error || 'Failed to load quiz');
       }
@@ -130,23 +128,21 @@ export default function TutorWorkspacePage() {
         <div className="flex rounded-lg bg-neutral-900 p-1 border border-neutral-850 self-start sm:self-auto shrink-0">
           <button
             onClick={() => setActiveTab('lesson')}
-            className={`flex items-center gap-1.5 rounded px-3.5 py-1.5 text-xs font-bold transition-all ${
-              activeTab === 'lesson'
+            className={`flex items-center gap-1.5 rounded px-3.5 py-1.5 text-xs font-bold transition-all ${activeTab === 'lesson'
                 ? 'bg-neutral-950 text-emerald-400 shadow-lg border border-neutral-800'
                 : 'text-neutral-450 hover:text-white'
-            }`}
+              }`}
           >
             <BookOpen className="h-3.5 w-3.5" />
             Textbook Lesson
           </button>
-          
+
           <button
             onClick={() => setActiveTab('chat')}
-            className={`flex items-center gap-1.5 rounded px-3.5 py-1.5 text-xs font-bold transition-all ${
-              activeTab === 'chat'
+            className={`flex items-center gap-1.5 rounded px-3.5 py-1.5 text-xs font-bold transition-all ${activeTab === 'chat'
                 ? 'bg-neutral-950 text-emerald-400 shadow-lg border border-neutral-800'
                 : 'text-neutral-450 hover:text-white'
-            }`}
+              }`}
           >
             <MessageSquare className="h-3.5 w-3.5" />
             Tutor Chat
@@ -155,11 +151,10 @@ export default function TutorWorkspacePage() {
           <button
             onClick={activeQuiz ? () => setActiveTab('quiz') : handleLoadQuiz}
             disabled={loadingQuiz}
-            className={`flex items-center gap-1.5 rounded px-3.5 py-1.5 text-xs font-bold transition-all ${
-              activeTab === 'quiz'
+            className={`flex items-center gap-1.5 rounded px-3.5 py-1.5 text-xs font-bold transition-all ${activeTab === 'quiz'
                 ? 'bg-neutral-950 text-emerald-400 shadow-lg border border-neutral-800'
                 : 'text-neutral-450 hover:text-white'
-            }`}
+              }`}
           >
             {loadingQuiz ? (
               <span className="h-3.5 w-3.5 border-2 border-emerald-500 border-t-transparent rounded-full animate-spin" />
@@ -174,13 +169,13 @@ export default function TutorWorkspacePage() {
       {/* Render Workspace Content according to active tab */}
       <div className="grid grid-cols-1 gap-6">
         {activeTab === 'lesson' && <LessonView lesson={currentLesson} />}
-        
+
         {activeTab === 'chat' && (
           <div className="max-w-3xl mx-auto w-full">
             <ChatWindow />
           </div>
         )}
-        
+
         {activeTab === 'quiz' && activeQuiz && (
           <QuizCard quiz={activeQuiz} onSubmit={submitAnswers} isSubmitting={isSubmitting} />
         )}

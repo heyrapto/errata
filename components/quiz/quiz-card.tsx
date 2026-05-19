@@ -4,9 +4,9 @@ import { useState } from 'react';
 import { Quiz, QuizGradingResult } from '@/types/quiz';
 import { Card, CardHeader, CardContent, CardTitle, CardFooter } from '../ui/card';
 import { Button } from '../ui/button';
+import { Award, Compass, Loader2 } from 'lucide-react';
 import { QuestionBlock } from './question-block';
 import { ResultsSummary } from './results-summary';
-import { Award, Compass, Loader2 } from 'lucide-react';
 
 interface QuizCardProps {
   quiz: Quiz;
@@ -34,8 +34,8 @@ export function QuizCard({ quiz, onSubmit, isSubmitting }: QuizCardProps) {
     return <ResultsSummary result={gradingResult} questions={quiz.questions} />;
   }
 
-  const answeredCount = Object.keys(answers).length;
-  const isComplete = answeredCount === quiz.questions.length;
+  const answeredCount = Object.values(answers).filter(val => val && val.trim() !== '').length;
+  const isComplete = quiz.questions.every(q => answers[q.id] && answers[q.id].trim() !== '');
 
   return (
     <Card className="max-w-2xl mx-auto shadow-2xl">
@@ -48,7 +48,7 @@ export function QuizCard({ quiz, onSubmit, isSubmitting }: QuizCardProps) {
           Answered: {answeredCount} / {quiz.questions.length}
         </span>
       </CardHeader>
-      
+
       <CardContent className="space-y-6 py-6">
         {quiz.questions.map((q, index) => (
           <QuestionBlock

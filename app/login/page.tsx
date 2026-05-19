@@ -7,8 +7,6 @@ import { Input } from '@/components/ui/input';
 import { Card, CardHeader, CardContent, CardTitle, CardDescription } from '@/components/ui/card';
 import { GraduationCap, Globe, Mail, Loader2, ArrowRight } from 'lucide-react';
 
-export const unstable_instant = { prefetch: 'static' };
-
 export default function LoginPage() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
