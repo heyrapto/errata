@@ -13,20 +13,10 @@ import { MessageBubble } from './message-bubble';
 export function ChatWindow() {
   const { messages, isLoading } = useSessionStore();
   const { sendMessage, streamingMessage } = useChat();
-  const { speak, stopSpeaking, isSpeaking, startListening, stopListening, isListening, transcript } = useVoice();
+  const { speak, stopSpeaking, isSpeaking, startListening, stopListening, isListening, isSupported } = useVoice();
   const [inputText, setInputText] = useState('');
   const [voiceOutEnabled, setVoiceOutEnabled] = useState(true);
   const bottomRef = useRef<HTMLDivElement>(null);
-
-  // Sync vocal transcription from hook to local input box with append fallback
-  useEffect(() => {
-    if (transcript) {
-      setInputText(prev => {
-        if (prev.endsWith(transcript)) return prev;
-        return prev ? `${prev.trim()} ${transcript}` : transcript;
-      });
-    }
-  }, [transcript]);
 
   // Automatically speak the latest assistant message when loading completes and voice out is enabled
   const prevLoadingRef = useRef(isLoading);
@@ -119,12 +109,26 @@ export function ChatWindow() {
           type="button"
           variant="outline"
           size="icon"
-          onClick={isListening ? stopListening : startListening}
+          onClick={
+            isSupported
+              ? isListening
+                ? stopListening
+                : () =>
+                    startListening((spokenText) => {
+                      setInputText((prev) => (prev ? `${prev.trim()} ${spokenText}` : spokenText));
+                    })
+              : undefined
+          }
+          disabled={!isSupported}
           className={cn(
             'shrink-0 border-neutral-800 transition-colors',
-            isListening ? 'bg-red-500/10 text-red-400 border-red-500/30 hover:bg-red-500/20' : 'text-neutral-400 hover:text-white'
+            !isSupported
+              ? 'cursor-not-allowed text-neutral-600'
+              : isListening
+                ? 'bg-red-500/10 text-red-400 border-red-500/30 hover:bg-red-500/20'
+                : 'text-neutral-400 hover:text-white'
           )}
-          title={isListening ? 'Stop listening' : 'Start voice input'}
+          title={!isSupported ? 'Voice input is not supported in this browser' : isListening ? 'Stop listening' : 'Start voice input'}
         >
           {isListening ? <MicOff className="h-4.5 w-4.5 animate-pulse" /> : <Mic className="h-4.5 w-4.5" />}
         </Button>

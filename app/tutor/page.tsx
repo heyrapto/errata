@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { Suspense, useState, useEffect } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { useSessionStore } from '@/store/session-store';
 import { useLesson } from '@/hooks/use-lesson';
@@ -23,7 +23,7 @@ import {
 
 type TutorTab = 'lesson' | 'chat' | 'quiz';
 
-export default function TutorWorkspacePage() {
+function TutorWorkspaceContent() {
   const searchParams = useSearchParams();
   const documentId = searchParams.get('docId') || undefined;
   const initialTopic = searchParams.get('topic') || '';
@@ -184,5 +184,19 @@ export default function TutorWorkspacePage() {
       {/* Persistent Speech synthesize triggers */}
       <VoicePlayer />
     </div>
+  );
+}
+
+export default function TutorWorkspacePage() {
+  return (
+    <Suspense
+      fallback={
+        <div className="flex h-[60vh] items-center justify-center text-sm text-neutral-450">
+          Loading tutor workspace...
+        </div>
+      }
+    >
+      <TutorWorkspaceContent />
+    </Suspense>
   );
 }

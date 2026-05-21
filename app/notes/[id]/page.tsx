@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect, use } from 'react';
+import { Suspense, useState, useEffect, use } from 'react';
 import { Note } from '@/types/lesson';
 import { NoteEditor } from '@/components/notes/note-editor';
 import { Loader2 } from 'lucide-react';
@@ -9,7 +9,7 @@ interface NoteEditorPageProps {
   params: Promise<{ id: string }>;
 }
 
-export default function NoteEditorPage({ params }: NoteEditorPageProps) {
+function NoteEditorContent({ params }: NoteEditorPageProps) {
   // Resolve params using React.use() wrapper in Next.js 16/App Router
   const { id } = use(params);
 
@@ -76,5 +76,20 @@ export default function NoteEditorPage({ params }: NoteEditorPageProps) {
     <div className="py-6">
       <NoteEditor note={note} onSave={handleSave} />
     </div>
+  );
+}
+
+export default function NoteEditorPage({ params }: NoteEditorPageProps) {
+  return (
+    <Suspense
+      fallback={
+        <div className="flex h-screen items-center justify-center text-sm text-neutral-450 gap-3">
+          <Loader2 className="h-5 w-5 animate-spin text-emerald-400" />
+          <span>Loading revision note editor...</span>
+        </div>
+      }
+    >
+      <NoteEditorContent params={params} />
+    </Suspense>
   );
 }
