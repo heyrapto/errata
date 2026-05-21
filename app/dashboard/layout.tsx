@@ -42,7 +42,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
         <Topbar />
 
         {/* Content body layout */}
-        <main className="flex-1 overflow-y-auto p-4 sm:p-6 lg:p-8 pb-20 lg:pb-8">
+        <main id="main-content" className="flex-1 overflow-y-auto p-4 sm:p-6 lg:p-8 pb-20 lg:pb-8">
           <div className="mx-auto max-w-6xl">
             {children}
           </div>

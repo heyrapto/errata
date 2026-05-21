@@ -21,7 +21,13 @@ export default function RootLayout({
         <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
       </head>
       <body className="font-outfit antialiased bg-neutral-950 text-neutral-100 min-h-screen selection:bg-emerald-500/25 selection:text-emerald-300">
-        <Providers>{children}</Providers>
+            <a
+              href="#main-content"
+              className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-50 focus:block focus:rounded-md focus:bg-emerald-500/10 focus:px-3 focus:py-2 focus:text-emerald-300"
+            >
+              Skip to content
+            </a>
+            <Providers>{children}</Providers>
       </body>
     </html>
   );

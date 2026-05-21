@@ -1,20 +1,25 @@
 'use client';
 
-import { Menu, Bell, User } from 'lucide-react';
+import { Menu, Bell, User, Sun, Moon } from 'lucide-react';
 import { useUIStore } from '@/store/ui-store';
 import { useSession } from 'next-auth/react';
 import Image from 'next/image';
+import { useTheme } from '@/app/providers';
 
 export function Topbar() {
-  const { toggleSidebar } = useUIStore();
+  const { toggleSidebar, sidebarOpen } = useUIStore();
   const { data: session } = useSession();
+  const { theme, toggleTheme } = useTheme();
 
   return (
     <header className="sticky top-0 z-30 flex h-16 w-full items-center justify-between border-b border-neutral-900 bg-neutral-950/70 px-6 backdrop-blur-md">
       {/* Mobile Toggle */}
       <button
         onClick={toggleSidebar}
-        className="rounded-lg p-2 text-neutral-400 hover:bg-neutral-900 hover:text-white lg:hidden"
+        aria-label={sidebarOpen ? 'Close main navigation' : 'Open main navigation'}
+        aria-expanded={sidebarOpen}
+        aria-controls="primary-sidebar"
+        className="rounded-lg p-2 text-neutral-400 hover:bg-neutral-900 hover:text-white lg:hidden focus-visible:ring-2 focus-visible:ring-emerald-500"
       >
         <Menu className="h-6 w-6" />
       </button>
@@ -26,7 +31,20 @@ export function Topbar() {
 
       {/* Right User Actions */}
       <div className="flex items-center gap-4 ml-auto">
-        <button className="relative rounded-lg p-2 text-neutral-400 hover:bg-neutral-900 hover:text-white transition-colors">
+        <button
+          onClick={toggleTheme}
+          aria-pressed={theme === 'dark'}
+          aria-label={theme === 'dark' ? 'Switch to light theme' : 'Switch to dark theme'}
+          title={theme === 'dark' ? 'Switch to light theme' : 'Switch to dark theme'}
+          className="rounded-lg p-2 text-neutral-400 hover:bg-neutral-900 hover:text-white transition-colors focus-visible:ring-2 focus-visible:ring-emerald-500"
+        >
+          {theme === 'dark' ? <Sun className="h-5 w-5" /> : <Moon className="h-5 w-5" />}
+        </button>
+
+        <button
+          className="relative rounded-lg p-2 text-neutral-400 hover:bg-neutral-900 hover:text-white transition-colors focus-visible:ring-2 focus-visible:ring-emerald-500"
+          aria-label="Open notifications"
+        >
           <Bell className="h-5 w-5" />
           <span className="absolute top-1 right-1 h-2 w-2 rounded-full bg-emerald-500" />
         </button>

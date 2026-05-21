@@ -6,6 +6,8 @@ import { Card } from '@/components/ui/card';
 import { ProgressChart } from '@/components/progress/progress-chart';
 import { WeakTopicsList } from '@/components/progress/weak-topics-list';
 import { useProgress } from '@/hooks/use-progress';
+import { UpcomingLessons } from '@/components/dashboard/upcoming-lessons';
+import { RecentUploads } from '@/components/dashboard/recent-uploads';
 import {
   Sparkles,
   Calendar,
@@ -107,15 +109,21 @@ export default function DashboardOverviewPage() {
 
       {/* Analytics & Performance grids */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-        {/* Sparkline timeline */}
-        <div className="lg:col-span-2 space-y-4">
-          <ProgressChart records={records} />
+        {/* Widgets */}
+        <div className="lg:col-span-2 grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <UpcomingLessons />
+          <RecentUploads />
         </div>
 
-        {/* Weak spots list */}
+        {/* Right column: analytics */}
         <div className="space-y-4">
           <WeakTopicsList weakAreas={weakAreas} />
         </div>
+      </div>
+
+      {/* Performance chart row */}
+      <div className="space-y-4">
+        <ProgressChart records={records} />
       </div>
     </div>
   );

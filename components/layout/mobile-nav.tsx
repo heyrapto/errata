@@ -27,6 +27,7 @@ export function MobileNav() {
               'flex flex-1 flex-col items-center justify-center gap-1 text-xs font-medium transition-colors',
               isActive ? 'text-emerald-400' : 'text-neutral-400 hover:text-neutral-100'
             )}
+            aria-current={isActive ? 'page' : undefined}
           >
             <link.icon className="h-5 w-5" />
             <span>{link.name}</span>

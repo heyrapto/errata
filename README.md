@@ -1,3 +1,52 @@
+EduAgent AI
+===============
+
+Local development guide and Phase 1 notes.
+
+Getting started
+---------------
+
+1. Copy `.env.example` to `.env.local` and set your credentials:
+
+   - `ELASTICSEARCH_URL`
+   - `GEMINI_API_KEY`
+   - `SUPABASE_URL`, `SUPABASE_ANON_KEY`, `SUPABASE_SERVICE_ROLE_KEY`
+   - `NEXTAUTH_SECRET`
+
+2. Install dependencies:
+
+```bash
+npm ci
+```
+
+3. Run the dev server:
+
+```bash
+npm run dev
+```
+
+4. Build for production:
+
+```bash
+npm run build
+```
+
+Notes
+-----
+
+- This project uses Next.js (App Router), TypeScript, Tailwind CSS, and shadcn/ui.
+- The repo expects external services (Elasticsearch, Supabase, Gemini) for full functionality; you can run the UI without them but AI/document features will be limited.
+- For CI, add a workflow that runs `npm ci && npm run lint && npm run build` on PRs.
+
+Phase 1 checklist
+-----------------
+- Add `.env.example` (done)
+- Provide README with basic startup (done)
+- Verify Tailwind config and global styles
+- Validate shadcn/ui primitives
+- Standardize base layout + dashboard shell
+- Add theme provider and persistence
+- Add CI and formatting tooling
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
 ## Getting Started

@@ -1,0 +1,24 @@
+## Phase 1 — Project Setup & Base UI
+
+Goal: produce a solid, reproducible developer setup and a polished base UI shell so Phase 2 (auth, Elastic, PDF pipeline) can proceed.
+
+Steps:
+1. Environment & deps: ensure `Node 20+`, `npm ci` succeeds.
+2. Editor/dev docs: `.env.example` and `README.md` created.
+3. Tailwind + globals: confirm `postcss.config.mjs` and `app/globals.css` contain Tailwind directives.
+4. UI primitives: validate `shadcn/ui` components are available and imported.
+5. Layout: server root `app/layout.tsx`, and client `components/layout/*` for sidebar/topbar/mobile.
+6. Dashboard shell: `app/dashboard/page.tsx` with placeholder widgets.
+7. Theme: `app/providers.tsx` wiring and preference persistence.
+8. Tooling: ESLint/Prettier, Husky, and a GitHub Actions CI suggested.
+9. Verification: `npm run build` and fix any prerender/dynamic issues.
+
+Notes:
+- Heavy integrations (Elastic/Gemini/Supabase) are deferred until Phase 2; `.env.example` provides placeholders.
+- Keep dynamic route annotations minimal (`export const dynamic = 'force-dynamic'`) only when necessary.
+
+Deliverables created so far:
+- `.env.example`
+- `README.md`
+- This `prd3` plan file
+

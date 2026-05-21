@@ -50,6 +50,9 @@ export function Sidebar({ className }: SidebarProps) {
 
       {/* Sidebar Sidebar */}
       <aside
+        id="primary-sidebar"
+        role="navigation"
+        aria-label="Primary navigation"
         className={cn(
           'fixed inset-y-0 left-0 z-40 flex w-64 flex-col border-r border-neutral-800 bg-neutral-950/80 backdrop-blur-md transition-transform duration-300 lg:static lg:translate-x-0',
           sidebarOpen ? 'translate-x-0' : '-translate-x-full',
@@ -80,6 +83,7 @@ export function Sidebar({ className }: SidebarProps) {
               <Link
                 key={item.name}
                 href={item.href}
+                aria-current={isActive ? 'page' : undefined}
                 className={cn(
                   'flex items-center gap-3 rounded-lg px-3.5 py-2.5 text-sm font-medium transition-all duration-200 group active:scale-[0.98]',
                   isActive
